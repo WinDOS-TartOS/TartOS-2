@@ -1,0 +1,60 @@
+<html>
+<head>
+  <title>Calculator</title>
+  <link rel="stylesheet" type = "text/css" href = "calcstyle.css">
+  <meta http-equiv="x-ua-compatible" content="ie=9">
+  <hta:application
+     ICON = "calc.ico"
+     APPLICATIONNAME = "Calculator"
+     BORDER = "dialog"
+     BORDERSTYLE = "sunken"
+     SELECTION = "no"
+     VERSION = "1"
+     SCROLL= "no"
+     MINIMIZEBUTTON = "no"
+     MAXIMIZEBUTTON = "no"
+  />
+  </head>
+  <body>
+  <form name = "calculator">
+      <table>
+          <tbody>
+              <tr>
+                  <td colspan="4" class="display"><input type="number" name = "answer" /></td>
+              </tr>
+              <tr>
+                  <td><input  type="button" id="clear" class="clear" value="c" onclick="calculator.answer.value = ''"/></td>
+                  <td><input type="button" id="mr" class="mr" value="MR" /></td>
+                  <td><input type="button" id="m+" class="m+" value="M+" /></td>
+                  <td><input type="button" id="percent" class="percent" value="%" /></td>
+               </tr>
+               <tr>
+                  <td><input type="button" id="one" class="one" value="1" onclick="calculator.answer.value += '1'" /></td>
+                  <td><input type="button" id="two" class="two" value="2" onclick="calculator.answer.value += '2'"/></td>
+                  <td><input type="button" id="three" class="three" value="3" onclick="calculator.answer.value += '3'"/></td>
+                  <td><input type="button" id="plus" class="plus" value="+" onclick="calculator.answer.value += '+'"/></td>
+                  </tr>
+              <tr>
+                  <td><input type="button" id="four" class="four" value="4" onclick="calculator.answer.value += '4'"/></td>
+                  <td><input type="button" id="five" class="five" value="5" onclick="calculator.answer.value += '5'"/></td>
+                  <td><input type="button" id="six" class="six" value="6" onclick="calculator.answer.value += '6'"/></td>
+                  <td><input type="button" id="minus" class="minus" value="-" onclick="calculator.answer.value += '-'"/></td>
+              </tr>
+              <tr>
+                  <td><input type="button" id="seven" class="seven" value="7" onclick="calculator.answer.value += '7'"/></td>
+                  <td><input type="button" id="eight" class="eight" value="8" onclick="calculator.answer.value += '8'"/></td>
+                  <td><input type="button" id="nine" class="nine" value="9" onclick="calculator.answer.value += '9'"/></td>
+                  <td><input type="button" id="times" class="times" value="*" onclick="calculator.answer.value += '*'"/></td>
+               </tr>
+               <tr>
+                  <td><input type="button" id="MC" class="mc" value="=" onclick="calculator.answer.value = eval(calculator.answer.value)"/></td>
+                  <td><input type="button" id="zero" class="zero" value="0" onclick="calculator.answer.value += '0'"/></td>
+                  <td><input type="button" id="dot" class="dot" value="." onclick="calculator.answer.value += '.'"/></td>
+                  <td><input type="button" id="obelus" class="obelus" value="/" onclick="calculator.answer.value += '/'"/></td>
+                   </tr>
+          </tbody>
+      </table>
+      </form>
+    <script type="text/javascript">window.resizeTo(335, 460)</script>
+</body>
+</html>

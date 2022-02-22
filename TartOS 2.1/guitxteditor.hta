@@ -1,0 +1,192 @@
+<html>
+<head>
+<title>TartEditor</title>
+<HTA:APPLICATION 
+ApplicationName="Text Editor"
+Icon="txtediticon.ico"
+Border="thick"
+Caption="yes"
+MaximizeButton="yes"
+MinimizeButton="yes"
+Scroll="yes"
+ShowInTaskbar="yes"
+SingleInstance="yes"
+SysMenu="yes"
+WindowState="Normal"
+>
+
+<style>
+body
+{
+margin:0px;
+padding:0px;
+}
+ul
+{
+border-style:solid;
+border-width:1px;
+height:30px;
+list-style-type:none;
+margin:0;
+padding:0;
+overflow:hidden;
+background-color:#fafafa;
+}
+li
+{
+float:left;
+}
+li a
+{
+display:block;
+color:black;
+text-align:center;
+padding:12px;
+font-family:verdana;
+font-size:12px;
+text-decoration:none;
+}
+li a:hover
+{
+background-color:#dbecff;
+}
+#Main
+{
+display:block;
+width:100%;
+height:100%;
+padding:4px;
+margin:0;
+border:1px solid #000000;
+background-color:#dbecff;
+overflow:auto;
+}
+</style>
+
+<script language="VBScript">
+Dim dirSel
+
+Sub Window_onLoad
+    window.resizeTo 400,250
+End Sub
+
+' --------------------------------------------------------------------
+Sub SaveFlName
+   Dim tmpName
+
+   tmpName = Document.getElementByID("flname").value
+   If InStr(tmpName,".txt") > 0 Then 
+      dirSel = tmpName
+   Else
+      dirSel = tmpName & ".txt"
+   End If   
+   document.getElementByID("Main").innerHtml = ""
+   document.getElementById("Main").contentEditable = true
+End Sub
+
+' --------------------------------------------------------------------
+Sub ShowSelection
+   Dim obj
+
+   Set obj = Document.getElementByID("A")
+
+   ' exit if no selections made
+   If obj.selectedindex = -1 Then exit sub
+
+   ' iterate through the options and checked if selected
+   For n = 0 to obj.options.length - 1
+      If obj.options(n).selected = true Then
+         dirSel = obj.options(n).text
+      End If
+   Next
+
+   Document.getElementByID("Main").innerHtml = dirSel & " loaded"
+End Sub
+
+' --------------------------------------------------------------------
+Sub Create
+   Dim ls
+
+   ls = "<form action='' name='flform' id='flform'>" & chr(13) & chr(10)
+   ls = ls & "File Name: <input type='text' id='flname'><br />" & chr(13) & chr(10)
+   ls = ls & "<button onclick='SaveFlName'>Create</button>" & chr(13) & chr(10)
+   ls = ls & "</form>"
+
+   Document.getElementByID("Main").innerHtml = ls
+End Sub
+
+' --------------------------------------------------------------------
+Sub Open
+   Dim ls, fsObj, fd,  fs, fl, numFiles
+
+   Document.getElementById("Main").contentEditable = false
+
+   Set fsObj = CreateObject("Scripting.FileSystemObject")
+   Set fd = fsObj.GetFolder(".")
+   Set fs = fd.Files
+
+   ls = "<form action='' name='dirform' id='dirform'>" & chr(13) & chr(10)
+   ls = ls & "<select id='A' size='6' onchange='ShowSelection'>" & chr(13) & chr(10)
+
+   For Each fl in fs
+      If InStr(fl,".txt") > 0 Then 
+           ls = ls & "<option>" & fl.name & "</option>" & chr(13) & chr(10)
+      End If
+   Next
+
+   ls = ls & "</select></form>"
+
+   Document.getElementByID("Main").innerHtml = ls
+
+   Set fsObj = Nothing
+End Sub
+
+' --------------------------------------------------------------------
+Sub Read
+   Dim fsObj, oFile
+
+   Set fsObj = CreateObject("Scripting.FileSystemObject")
+   Set oFile = fsObj.OpenTextFile(dirSel,1)
+   text = oFile.ReadAll
+
+   Document.getElementByID("Main").innerHtml = text
+   Document.getElementById("Main").contentEditable = true
+
+   oFile.Close
+   Set fsObj = Nothing
+End Sub
+
+' --------------------------------------------------------------------
+Sub Save
+
+  Dim objFSO, curDir, outFile, objFile, text
+
+  Set objFSO = CreateObject("Scripting.FileSystemObject")
+  curDir = objFSO.GetAbsolutePathName(".")
+  outFile = curDir & "\" & dirSel
+
+  text = Document.getElementByID("Main").innerHtml
+  Set objFile = objFSO.CreateTextFile(outFile,True)
+  objFile.Write text
+
+   objFile.Close
+   Set fsObj = Nothing
+End Sub
+
+</script>
+
+</head>
+<body>
+
+<ul>
+  <li><a href="#" onclick="Create">New</a></li>
+  <li><a href="#" onclick="Open">Open</a></li>
+  <li><a href="#" onclick="Read">Read</a></li>
+  <li><a href="#" onclick="Save">Save</a></li>
+</ul>
+
+<div id="Main">
+</div>
+
+</body>
+</html>
