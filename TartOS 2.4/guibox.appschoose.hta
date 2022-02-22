@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Programs</title>
+    <HTA:APPLICATION ID="Programs"
+              APPLICATIONNAME="Programs"
+                BORDER="thin"
+                BORDERSTYLE="normal"
+                CAPTION="yes"
+                ICON="guiboxicon.ico"
+                MAXIMIZEBUTTON="no"
+                MINIMIZEBUTTON="yes"
+                SCROLL="no"
+                SHOWINTASKBAR="yes"
+                SINGLEINSTANCE="yes"
+                SYSMENU="yes"
+                VERSION="1.0"
+                Navigable ="yes"
+                WINDOWSTATE="normal"
+                contextmenu="no" />
+    <script type="text/javascript" language="javascript">
+    window.resizeTo(380,130)
+    window.moveTo((screen.width - 800) / 2, (screen.height - 600) / 2);
+        function RunFile(path) {
+            WshShell = new ActiveXObject("WScript.Shell");
+            WshShell.Run(path, 1, false);
+     }       
+    </script>
+</head>
+<body>
+    <input type="button" value="Notepad" onclick="RunFile('guitxteditor.hta');"/>
+    <input type="button" value="Calendar" onclick="RunFile('calendar.hta');"/>
+    <input type="button" value="Minesweeper" onclick="RunFile('minesweeper.bat');"/>
+    <input type="button" value="Calculator" onclick="RunFile('guicalc.hta');"/>
+    <input type="button" value="Snake Xenzia" onclick="RunFile('snakexz.bat');"/>
+</body>
+</html>

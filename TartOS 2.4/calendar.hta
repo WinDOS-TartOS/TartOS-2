@@ -1,0 +1,66 @@
+<HTML xmlns:IE>
+<HEAD>
+<TITLE>Calendar</TITLE>
+<HTA:APPLICATION
+  APPLICATIONNAME="Calendar Demo"
+  ID="CalendarDemo"
+  BORDER="thin"
+  ICON="calendar.ico"/>
+
+<STYLE>
+@media all
+{
+ IE\:Calendar { behavior : url(calendar.htc) }
+}
+</STYLE>
+
+</HEAD>
+
+<SCRIPT LANGUAGE="VBScript">
+window.resizeTo 600,600
+
+Sub Calendar_OnPropertyChange( )
+ Dim strDate
+ strDate = DateSerial(Calendar.Year,Calendar.Month,Calendar.Day)
+ myLongDate.Value        = FormatDateTime( strDate, vbLongDate )
+End Sub
+
+Sub TodayButton_OnClick( )
+ Calendar.Year  = Year(Now )
+ Calendar.Month = Month(Now)
+ Calendar.Day   = Day(Now)
+End Sub
+
+Sub Window_OnLoad( )
+
+ ' Set some of the calendar control's properties
+ Calendar.DayLength         = "short" 'short or long
+ Calendar.MonthLength       = "long" 'short or long
+ Calendar.ShowDateSelectors = 1
+ Calendar.ShowDays          = 1
+ Calendar.ShowTitle         = 1
+
+ ' Fill in the date fields below the calendar control
+ Calendar_OnPropertyChange( )
+End Sub
+
+Sub OnClickButtonSelectedDate()
+ strDate = DateSerial(Calendar.Year,Calendar.Month,Calendar.Day)
+ MsgBox FormatDateTime(strDate,vbShortDate)
+End Sub
+</SCRIPT>
+<BODY>
+
+<IE:Calendar id="Calendar" style="width : 250; height : 250; border : 1px solid black;"></IE:Calendar>
+<IE:Calendar id="Calendar2" style="width : 250; height : 250; border : 1px solid black;"></IE:Calendar>
+<IE:Calendar id="Calendar3" style="width : 250; height : 250; border : 1px solid black;"></IE:Calendar>
+<BR>
+Selected Date:<INPUT ID="myLongDate" TYPE="text" SIZE="32" READONLY>
+<BR>
+<INPUT ID="TodayButton" TYPE="button" VALUE="Today">
+<BR>
+<BR>
+<BR><BR>
+<i></i>
+</BODY>
+</HTML>
